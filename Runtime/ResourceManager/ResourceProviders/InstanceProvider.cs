@@ -26,7 +26,7 @@ namespace UnityEngine.ResourceManagement.ResourceProviders
         public void ReleaseInstance(ResourceManager resourceManager, GameObject instance)
         {
             // I dont know why the dude before thought the guard is great, as it was basically throwing exceptions at the TryGetValue as it uses the '==' operator...
-            if (instance == null)
+            if (instance is null || instance == null)
                 return;
 
             AsyncOperationHandle<GameObject> resource;
