@@ -65,7 +65,7 @@ namespace UnityEditor.AddressableAssets.Build.AnalyzeRules
             buildTasks.Add(new CalculateSceneDependencyData());
             buildTasks.Add(new CalculateAssetDependencyData());
             buildTasks.Add(new StripUnusedSpriteSources());
-            buildTasks.Add(new CreateBuiltInShadersBundle(builtinShaderBundleName));
+            buildTasks.Add(new CreateBuiltInBundle(builtinShaderBundleName));
 
             // Packing
             buildTasks.Add(new GenerateBundlePacking());

@@ -30,11 +30,6 @@ namespace UnityEditor.AddressableAssets.Build
         public string PlayerVersion { get; set; }
 
         /// <summary>
-        /// Bool to signify if profiler events should be broadcast.
-        /// </summary>
-        public bool ProfilerEventsEnabled { get; private set; }
-
-        /// <summary>
         /// Registry of files created during the build
         /// </summary>
         public FileRegistry Registry { get; private set; }
@@ -53,10 +48,10 @@ namespace UnityEditor.AddressableAssets.Build
         /// The name of the default Runtime Catalog file.
         /// </summary>
         public string RuntimeCatalogFilename =
-#if ENABLE_BINARY_CATALOG
-            "catalog.bin";
+#if ENABLE_JSON_CATALOG
+           "catalog.json";
 #else
-            "catalog.json";
+            "catalog.bin";
 #endif
         /// <summary>
         /// The asset content state of a previous build.  This allows detection of deltas with the current build content state.  This will be
@@ -110,7 +105,6 @@ namespace UnityEditor.AddressableAssets.Build
             TargetGroup = buildTargetGroup;
             Target = buildTarget;
             PlayerVersion = playerBuildVersion;
-            ProfilerEventsEnabled = ProjectConfigData.PostProfilerEvents;
             Registry = new FileRegistry();
             PreviousContentState = null;
         }

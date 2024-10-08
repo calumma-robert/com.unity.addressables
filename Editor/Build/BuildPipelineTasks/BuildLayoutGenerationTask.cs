@@ -412,12 +412,10 @@ namespace UnityEditor.AddressableAssets.Build.BuildPipelineTasks
 
                     if (asset.MainAssetType == AssetType.GameObject)
                     {
-#if UNITY_2022_2_OR_NEWER
                         Type importerType = AssetDatabase.GetImporterType(asset.AssetPath);
                         if (importerType == typeof(ModelImporter))
                             asset.MainAssetType = AssetType.Model;
                         else if (importerType != null)
-#endif
                             asset.MainAssetType = AssetType.Prefab;
                     }
 
@@ -718,6 +716,9 @@ namespace UnityEditor.AddressableAssets.Build.BuildPipelineTasks
             // create groups
             foreach (AddressableAssetGroup group in aaSettings.groups)
             {
+                if (group == null)
+                    continue;
+
                 if (group.Name != group.name)
                 {
                     Debug.LogWarningFormat(
@@ -1114,11 +1115,12 @@ namespace UnityEditor.AddressableAssets.Build.BuildPipelineTasks
             editorSettings.NonRecursiveBuilding = aaSettings.NonRecursiveBuilding;
             editorSettings.ContiguousBundles = aaSettings.ContiguousBundles;
             editorSettings.UniqueBundleIds = aaSettings.UniqueBundleIds;
+            editorSettings.EnableJsonCatalog = aaSettings.EnableJsonCatalog;
 
-            if (aaSettings.ShaderBundleNaming == ShaderBundleNaming.Custom)
-                editorSettings.ShaderBundleNaming = aaSettings.ShaderBundleCustomNaming;
+            if (aaSettings.BuiltInBundleNaming == BuiltInBundleNaming.Custom)
+                editorSettings.ShaderBundleNaming = aaSettings.BuiltInBundleCustomNaming;
             else
-                editorSettings.ShaderBundleNaming = aaSettings.ShaderBundleNaming.ToString();
+                editorSettings.ShaderBundleNaming = aaSettings.BuiltInBundleNaming.ToString();
             if (aaSettings.MonoScriptBundleNaming == MonoScriptBundleNaming.Custom)
                 editorSettings.MonoScriptBundleNaming = aaSettings.MonoScriptBundleCustomNaming;
             else
@@ -1129,7 +1131,9 @@ namespace UnityEditor.AddressableAssets.Build.BuildPipelineTasks
             if (aaSettings.BuildRemoteCatalog)
                 editorSettings.RemoteCatalogLoadPath = aaSettings.RemoteCatalogLoadPath.GetValue(aaSettings);
             editorSettings.CatalogRequestsTimeout = aaSettings.CatalogRequestsTimeout;
+#if ENABLE_JSON_CATALOG
             editorSettings.BundleLocalCatalog = aaSettings.BundleLocalCatalog;
+#endif
             editorSettings.OptimizeCatalogSize = aaSettings.OptimizeCatalogSize;
             editorSettings.DisableCatalogUpdateOnStartup = aaSettings.DisableCatalogUpdateOnStartup;
 
@@ -1168,7 +1172,6 @@ namespace UnityEditor.AddressableAssets.Build.BuildPipelineTasks
             }
 
             BuildLayout.AddressablesRuntimeData runtimeSettings = new BuildLayout.AddressablesRuntimeData();
-            runtimeSettings.ProfilerEvents = aaContext.runtimeData.ProfileEvents;
             runtimeSettings.LogResourceManagerExceptions = aaContext.runtimeData.LogResourceManagerExceptions;
 
             runtimeSettings.CatalogLoadPaths = new List<string>();
@@ -1190,7 +1193,10 @@ namespace UnityEditor.AddressableAssets.Build.BuildPipelineTasks
 
             string destinationPath = TimeStampedReportPath(layout.BuildStart);
             using (m_Log.ScopedStep(LogLevel.Info, "Writing BuildReport File"))
+            {
                 layout.WriteToFile(destinationPath, k_PrettyPrint);
+                layout.m_FilePath = destinationPath;
+            }
 
             if (ProjectConfigData.BuildLayoutReportFileFormat == ProjectConfigData.ReportFileFormat.TXT)
             {

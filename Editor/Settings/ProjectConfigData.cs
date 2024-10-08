@@ -16,10 +16,6 @@ namespace UnityEditor.AddressableAssets.Settings
         [Serializable]
         class ConfigSaveData
         {
-            [FormerlySerializedAs("m_postProfilerEvents")]
-            [SerializeField]
-            internal bool postProfilerEventsInternal;
-
             [FormerlySerializedAs("m_localLoadSpeed")]
             [SerializeField]
             internal long localLoadSpeedInternal = 1024 * 1024 * 10;
@@ -49,12 +45,11 @@ namespace UnityEditor.AddressableAssets.Settings
 
             [SerializeField]
             internal List<string> buildReports = new List<string>();
-#if UNITY_2022_2_OR_NEWER
+
             [SerializeField]
             internal bool autoOpenAddressablesReport = true;
             [SerializeField]
             internal bool userHasBeenInformedAboutBuildReportSettingPreBuild = false;
-#endif
             [SerializeField]
             internal bool userHasBeenInformedAboutPathPairMigration = false;
         }
@@ -100,7 +95,6 @@ namespace UnityEditor.AddressableAssets.Settings
             }
         }
 
-#if UNITY_2022_2_OR_NEWER
         internal static bool AutoOpenAddressablesReport
         {
             get
@@ -136,9 +130,6 @@ namespace UnityEditor.AddressableAssets.Settings
                 }
             }
         }
-
-
-#endif
 
         internal static bool UserHasBeenInformedAboutPathPairMigration
         {
@@ -265,24 +256,6 @@ namespace UnityEditor.AddressableAssets.Settings
             {
                 ValidateData();
                 s_Data.activePlayModeIndex = value;
-                SaveData();
-            }
-        }
-
-        /// <summary>
-        /// Whether to post profiler events in the ResourceManager profiler window.
-        /// </summary>
-        public static bool PostProfilerEvents
-        {
-            get
-            {
-                ValidateData();
-                return s_Data.postProfilerEventsInternal;
-            }
-            set
-            {
-                ValidateData();
-                s_Data.postProfilerEventsInternal = value;
                 SaveData();
             }
         }

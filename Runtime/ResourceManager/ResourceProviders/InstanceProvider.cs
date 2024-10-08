@@ -25,7 +25,7 @@ namespace UnityEngine.ResourceManagement.ResourceProviders
         /// <inheritdoc/>
         public void ReleaseInstance(ResourceManager resourceManager, GameObject instance)
         {
-            // I dont know why the dude before thought the guard is great, as it was basically throwing exceptions at the TryGetValue as it uses the '==' operator...
+            // Guard for null - note that Unity overloads equality for GameObject so `default(GameObject) == null` is true so must use explicit `is null` type guard
             if (instance is null || instance == null)
                 return;
 

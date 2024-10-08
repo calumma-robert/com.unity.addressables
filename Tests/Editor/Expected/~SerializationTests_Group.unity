@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: testGroup
   m_EditorClassIdentifier: 
   m_GroupName: testGroup
-  m_Data:
-    m_SerializedData: []
   m_GUID: 16cd2736586abc441a3ef8bffa03b61f
   m_SerializeEntries:
   - m_GUID: 2269b1fb-67ee-4b32-a936-4647ff4c45b4
