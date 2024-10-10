@@ -587,8 +587,6 @@ namespace UnityEngine.AddressableAssets
         /// </summary>
         public const string kAddressablesRuntimeDataPath = "AddressablesRuntimeDataPath";
 
-        const string k_AddressablesLogConditional = "ADDRESSABLES_LOG_ALL";
-
         /// <summary>
         /// The name of the PlayerPrefs value used to set the path to check for build logs that need to be shown in the runtime.
         /// </summary>
@@ -686,9 +684,9 @@ namespace UnityEngine.AddressableAssets
             get { return m_Addressables.ResourceLocators; }
         }
 
-        [Conditional(k_AddressablesLogConditional)]
         internal static void InternalSafeSerializationLog(string msg, LogType logType = LogType.Log)
         {
+            if (!AddressablesLogAll.Enabled) return;
             if (m_AddressablesInstance == null)
                 return;
             switch (logType)
@@ -705,9 +703,9 @@ namespace UnityEngine.AddressableAssets
             }
         }
 
-        [Conditional(k_AddressablesLogConditional)]
         internal static void InternalSafeSerializationLogFormat(string format, LogType logType = LogType.Log, params object[] args)
         {
+            if (!AddressablesLogAll.Enabled) return;
             if (m_AddressablesInstance == null)
                 return;
             switch (logType)
@@ -735,9 +733,9 @@ namespace UnityEngine.AddressableAssets
         /// <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLog.cs" region="SAMPLE" />
         /// </example>
         /// <seealso href="xref:addressables-asset-settings">Enable all logging</seealso>
-        [Conditional(k_AddressablesLogConditional)]
         public static void Log(string msg)
         {
+            if (!AddressablesLogAll.Enabled) return;
             m_Addressables.Log(msg);
         }
 
@@ -753,9 +751,9 @@ namespace UnityEngine.AddressableAssets
         /// <example>
         /// <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogFormat.cs" region="SAMPLE" />
         /// </example>
-        [Conditional(k_AddressablesLogConditional)]
         public static void LogFormat(string format, params object[] args)
         {
+            if (!AddressablesLogAll.Enabled) return;
             m_Addressables.LogFormat(format, args);
         }
 
