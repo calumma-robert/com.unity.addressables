@@ -1176,8 +1176,8 @@ namespace UnityEngine.ResourceManagement
             m_InsideExecuteDeferredCallbacksMethod = true;
             for (int i = 0; i < m_DeferredCompleteCallbacks.Count; i++)
             {
-                m_DeferredCompleteCallbacks[i].InvokeCompletionEvent();
-                m_DeferredCompleteCallbacks[i].DecrementReferenceCount();
+                try { m_DeferredCompleteCallbacks[i].InvokeCompletionEvent(); } catch (Exception e) { Debug.LogException(e); }
+                try { m_DeferredCompleteCallbacks[i].DecrementReferenceCount(); } catch (Exception e) { Debug.LogException(e); }
             }
 
             m_DeferredCompleteCallbacks.Clear();

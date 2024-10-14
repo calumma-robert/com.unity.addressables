@@ -4,6 +4,9 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.22.5] - 2024-10-14
+- Made ExecuteDeferredCallbacks non destructive, as it was causing permanent failures in some cases
+
 ## [1.22.4] - 2024-10-10
 - Removed ADDRESSABLES_LOG_ALL and made it an public API to toggle at runtime
 
