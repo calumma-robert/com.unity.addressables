@@ -4,17 +4,16 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.22.6] - 2024-12-17
+## [1.22.3c] - 2024-12-17
 - WebGL tries WaitForCompletion once one a main thread, before throwing an exception
-
-## [1.22.5] - 2024-10-14
 - Made ExecuteDeferredCallbacks non destructive, as it was causing permanent failures in some cases
-
-## [1.22.4] - 2024-10-10
 - Removed ADDRESSABLES_LOG_ALL and made it an public API to toggle at runtime
-
-## [1.22.3] - 2024-09-05
 - Fixed issue with ArgumentNullException on InstanceProvider.ReleaseInstance
+
+## [1.22.3] - 2024-10-18
+- Fixed issue where the content of the list with Addressable Assets Groups is improperly indented when displayed in Group Hierarchy with Dashes Group View.
+- Fixed issue where “Profile rename failed because default profile cannot be renamed“ error is thrown when renaming a new profile in Addressables Profiles.
+- Fixed loading error when the loading from an assetbundle that is currently being preloaded.
 
 ## [1.22.2] - 2024-05-13
 - Fixed memory leak when loading Sprite objects from a SpriteAtlas asset.
