@@ -174,7 +174,7 @@ namespace UnityEngine.ResourceManagement.AsyncOperations
                 while (!InvokeWaitForCompletion())
                 {
                 }
-            else
+            else if (!InvokeWaitForCompletion())
                 throw new Exception($"{Application.platform} does not support synchronous Addressable loading.  Please do not use WaitForCompletion on the {Application.platform} platform.");
         }
 
