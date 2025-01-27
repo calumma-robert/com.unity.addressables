@@ -5,7 +5,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [1.22.3c] - 2024-12-17
-- WebGL tries WaitForCompletion once one a main thread, before throwing an exception
 - Made ExecuteDeferredCallbacks non destructive, as it was causing permanent failures in some cases
 - Removed ADDRESSABLES_LOG_ALL and made it an public API to toggle at runtime
 - Fixed issue with ArgumentNullException on InstanceProvider.ReleaseInstance
